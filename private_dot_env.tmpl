@@ -15,7 +15,7 @@
 
 # ── GitHub ───────────────────────────────────────────────────────────────────
 # Bitwarden: 新增 item 名稱="GitHub PAT"，密碼欄位填入 PAT token
-# export GITHUB_TOKEN={{ (bitwarden "item" "GitHub PAT").login.password }}
+export GITHUB_TOKEN={{ (bitwarden "item" "GitHub PAT").login.password }}
 
 # ── Anthropic / Claude API ───────────────────────────────────────────────────
 # export ANTHROPIC_API_KEY={{ (bitwarden "item" "Anthropic API").login.password }}
