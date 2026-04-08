@@ -1,5 +1,9 @@
 # ── Homebrew ────────────────────────────────────────────────────────────────
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -f /opt/homebrew/bin/brew ]]; then       # Apple Silicon Mac
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f /usr/local/bin/brew ]]; then        # Intel Mac
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 # ── Path ────────────────────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"

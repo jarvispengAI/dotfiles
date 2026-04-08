@@ -1,6 +1,6 @@
 # dotfiles — Jarvis Peng
 
-Managed by [chezmoi](https://chezmoi.io) + [1Password CLI](https://developer.1password.com/docs/cli/).
+Managed by [chezmoi](https://chezmoi.io) + [Bitwarden CLI](https://bitwarden.com/help/cli/).
 
 ## 第一次設定新電腦（3步驟）
 
@@ -23,7 +23,30 @@ irm https://raw.githubusercontent.com/jarvispengAI/dotfiles/main/scripts/bootstr
 
 ---
 
-## 日常使用 — 修改設定
+## 日常同步流程
+
+### Mac → GitHub（推送修改）
+
+```bash
+cd $(chezmoi source-path)
+git add -A && git commit -m "update" && git push
+```
+
+### Windows / 另一台 Mac → 拉取最新設定
+
+```bash
+# 確保 Bitwarden 已登入
+export BW_SESSION=$(bw unlock --raw)
+
+# 拉取 GitHub 最新並套用
+chezmoi update
+```
+
+> `chezmoi update` = `git pull` + `chezmoi apply`，一步完成。
+
+---
+
+## 修改設定檔
 
 ```bash
 # 查看哪些檔案會被更新
@@ -34,30 +57,29 @@ chezmoi apply
 
 # 修改某個設定檔（會自動開啟 source 檔）
 chezmoi edit ~/.gitconfig
-
-# 把修改推到 GitHub
-cd $(chezmoi source-path) && git add -A && git commit -m "update" && git push
+chezmoi edit ~/.zshrc
 ```
 
 ---
 
-## 新增 Secret 到 1Password
+## 新增 Secret 到 Bitwarden
 
-1. 在 1Password App 裡新增 item（選好 vault、item名稱、field名稱）
+1. 在 **Bitwarden App** 新增 item（記住 item 名稱）
 2. 編輯 `private_dot_env.tmpl`：
 
 ```bash
 chezmoi edit ~/.env
 ```
 
-加入這行並取消註解：
+加入這行：
 ```
-export MY_SECRET={{ onepasswordRead "op://VaultName/ItemName/FieldName" }}
+export MY_SECRET={{ (bitwarden "item" "Item名稱").login.password }}
 ```
 
-3. 套用：
+3. 套用前先確保 Bitwarden CLI 已解鎖：
 
 ```bash
+export BW_SESSION=$(bw unlock --raw)
 chezmoi apply
 ```
 
@@ -68,16 +90,16 @@ chezmoi apply
 ```
 dotfiles/
 ├── .chezmoi.toml.tmpl                          # chezmoi 設定（name, email）
+├── .chezmoiignore                              # 跨平台忽略規則
 ├── dot_gitconfig.tmpl                          # → ~/.gitconfig
 ├── dot_bash_profile.tmpl                       # → ~/.bash_profile（Git Bash / Linux）
-├── dot_zshrc.tmpl                              # → ~/.zshrc（Mac）
+├── dot_zshrc.tmpl                              # → ~/.zshrc（Mac only）
 ├── dot_ssh/
 │   └── config.tmpl                             # → ~/.ssh/config
 ├── dot_config/
 │   └── powershell/
-│       └── Microsoft.PowerShell_profile.ps1.tmpl  # → PowerShell profile
-├── private_dot_env.tmpl                        # → ~/.env（secrets，由 1Password 填入）
-├── .chezmoiignore                              # 跨平台忽略規則
+│       └── Microsoft.PowerShell_profile.ps1.tmpl  # → PowerShell profile（Windows only）
+├── private_dot_env.tmpl                        # → ~/.env（secrets，由 Bitwarden 填入）
 └── scripts/
     ├── bootstrap-windows.ps1                   # Windows 新機器一鍵設定
     └── bootstrap-mac.sh                        # Mac 新機器一鍵設定
