@@ -5,16 +5,14 @@
 # HOW TO ADD A NEW SECRET:
 #   1. 在 Bitwarden App 新增 item（記好 item 名稱和 field）
 #   2. 在下方加入對應的 export 行（取消註解）
-#   3. Run: chezmoi apply
+#   3. Run: chezmoi update && chezmoi apply
 #
-# Bitwarden template 語法：
-#   密碼欄位:  {{ (bitwarden "item" "Item Name").login.password }}
-#   帳號欄位:  {{ (bitwarden "item" "Item Name").login.username }}
-#   備註欄位:  {{ (bitwarden "item" "Item Name").notes }}
-#   自訂欄位:  {{ (bitwardenFields "item" "Item Name").fieldName.value }}
+# Bitwarden template 語法（加新 secret 時參考）：
+#   密碼欄位:  (bitwarden "item" "Item Name").login.password
+#   帳號欄位:  (bitwarden "item" "Item Name").login.username
+#   自訂欄位:  (bitwardenFields "item" "Item Name").fieldName.value
 
 # ── GitHub ───────────────────────────────────────────────────────────────────
-# Bitwarden: 新增 item 名稱="GitHub PAT"，密碼欄位填入 PAT token
 export GITHUB_TOKEN={{ (bitwarden "item" "GitHub PAT").login.password }}
 
 # ── Anthropic / Claude API ───────────────────────────────────────────────────
@@ -23,6 +21,3 @@ export GITHUB_TOKEN={{ (bitwarden "item" "GitHub PAT").login.password }}
 # ── AWS (if applicable) ──────────────────────────────────────────────────────
 # export AWS_ACCESS_KEY_ID={{ (bitwardenFields "item" "AWS").access_key_id.value }}
 # export AWS_SECRET_ACCESS_KEY={{ (bitwarden "item" "AWS").login.password }}
-
-# ── Add your own secrets below ───────────────────────────────────────────────
-# Pattern: export MY_KEY={{ (bitwarden "item" "Item Name").login.password }}
