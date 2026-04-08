@@ -21,6 +21,23 @@ function cz  { chezmoi @args }
 function czd { chezmoi diff }
 function cza { chezmoi apply }
 
+# 推送本機修改到 GitHub
+function czpush {
+    chezmoi re-add 2>$null
+    $src = chezmoi source-path
+    Push-Location $src
+    git add -A
+    git commit -m "sync: $(Get-Date -Format 'yyyy-MM-dd')"
+    git push
+    Pop-Location
+}
+
+# 從 GitHub 拉取最新並套用
+function czpull {
+    $env:BW_SESSION = bw unlock --raw
+    chezmoi update
+}
+
 # ── Oh-My-Posh (optional cross-platform prompt) ──────────────────────────────
 # oh-my-posh init pwsh | Invoke-Expression
 

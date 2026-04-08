@@ -28,6 +28,22 @@ alias cza="chezmoi apply"
 alias cze="chezmoi edit"
 alias czcd="cd $(chezmoi source-path)"
 
+# 推送本機修改到 GitHub
+czpush() {
+    chezmoi re-add 2>/dev/null
+    cd "$(chezmoi source-path)"
+    git add -A
+    git commit -m "sync: $(date +%Y-%m-%d)" 2>/dev/null || echo "nothing to commit"
+    git push
+    cd -
+}
+
+# 從 GitHub 拉取最新並套用
+czpull() {
+    export BW_SESSION=$(bw unlock --raw)
+    chezmoi update
+}
+
 # ── Node / nvm ──────────────────────────────────────────────────────────────
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
