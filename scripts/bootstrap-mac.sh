@@ -30,10 +30,15 @@ brew install \
     1password-cli   # op CLI
 
 install_cask() {
-    brew list --cask "$1" &>/dev/null && echo " OK $1 already installed" || brew install --cask "$1"
+    local name="$1" app="$2"
+    if [[ -d "/Applications/$app" ]] || brew list --cask "$name" &>/dev/null; then
+        echo " OK $name already installed, skipping"
+    else
+        brew install --cask "$name"
+    fi
 }
-install_cask visual-studio-code
-install_cask 1password
+install_cask visual-studio-code "Visual Studio Code.app"
+install_cask 1password "1Password.app"
 
 ok "Packages installed"
 
