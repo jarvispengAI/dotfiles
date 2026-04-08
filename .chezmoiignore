@@ -1,0 +1,10 @@
+# Files to ignore on specific platforms
+{{ if ne .chezmoi.os "darwin" }}
+# Mac-only files — skip on Windows/Linux
+dot_zshrc.tmpl
+{{ end }}
+
+{{ if ne .chezmoi.os "windows" }}
+# Windows-only files — skip on Mac/Linux
+dot_config/powershell
+{{ end }}

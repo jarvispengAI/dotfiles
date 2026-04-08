@@ -1,0 +1,36 @@
+# ── Homebrew ────────────────────────────────────────────────────────────────
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# ── Path ────────────────────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+
+# ── Secrets (loaded from 1Password via chezmoi) ────────────────────────────
+# These are written by chezmoi from private_dot_env.tmpl → ~/.env
+# Do NOT put raw secrets in this file.
+[[ -f "$HOME/.env" ]] && source "$HOME/.env"
+
+# ── Aliases ─────────────────────────────────────────────────────────────────
+alias ll="ls -lah"
+alias gs="git status"
+alias gl="git lg"
+alias gc="git commit"
+alias gp="git push"
+alias code="open -a 'Visual Studio Code'"
+
+# ── chezmoi shortcut ────────────────────────────────────────────────────────
+alias cz="chezmoi"
+alias czd="chezmoi diff"
+alias cza="chezmoi apply"
+alias cze="chezmoi edit"
+alias czcd="cd $(chezmoi source-path)"
+
+# ── Node / nvm ──────────────────────────────────────────────────────────────
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# ── Python ──────────────────────────────────────────────────────────────────
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null && eval "$(pyenv init -)"
+
+# ── Prompt (optional: use starship for cross-platform consistent prompt) ───
+# eval "$(starship init zsh)"

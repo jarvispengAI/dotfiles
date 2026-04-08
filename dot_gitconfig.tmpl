@@ -1,0 +1,42 @@
+[user]
+    name = {{ .name | quote }}
+    email = {{ .email | quote }}
+    signingkey =
+
+[core]
+    autocrlf = {{ if eq .chezmoi.os "windows" }}true{{ else }}input{{ end }}
+    editor = code --wait
+    pager = less -FRX
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+[push]
+    autoSetupRemote = true
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    lg = log --oneline --graph --decorate --all
+    undo = reset HEAD~1 --mixed
+    save = stash push -m
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[credential]
+{{ if eq .chezmoi.os "windows" -}}
+    helper = manager
+{{ else -}}
+    helper = osxkeychain
+{{ end -}}
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

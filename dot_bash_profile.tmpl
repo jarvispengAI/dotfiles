@@ -1,0 +1,21 @@
+# Git Bash profile (Windows) — also sourced by bash on Mac if .zshrc not used
+# ── Path ────────────────────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+
+# ── Secrets ─────────────────────────────────────────────────────────────────
+[[ -f "$HOME/.env" ]] && source "$HOME/.env"
+
+# ── Aliases ─────────────────────────────────────────────────────────────────
+alias ll="ls -lah --color=auto"
+alias gs="git status"
+alias gl="git log --oneline --graph --decorate --all"
+alias gc="git commit"
+alias gp="git push"
+
+alias cz="chezmoi"
+alias czd="chezmoi diff"
+alias cza="chezmoi apply"
+
+# ── Node / nvm ──────────────────────────────────────────────────────────────
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

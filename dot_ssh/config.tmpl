@@ -1,0 +1,24 @@
+Host *
+    AddKeysToAgent yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+# GitHub — uses your personal SSH key
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+
+# GitHub work account (if you have a separate work GitHub)
+# Host github-work
+#     HostName github.com
+#     User git
+#     IdentityFile ~/.ssh/id_ed25519_work
+#     IdentitiesOnly yes
+
+# Add your company servers below, e.g.:
+# Host roku-dev
+#     HostName dev.roku.internal
+#     User cpeng
+#     IdentityFile ~/.ssh/id_ed25519
