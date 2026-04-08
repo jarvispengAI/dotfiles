@@ -27,7 +27,7 @@ brew install \
     git \
     node \
     python@3.12 \
-    1password-cli   # op CLI
+    bitwarden-cli   # bw CLI
 
 install_cask() {
     local name="$1" app="$2"
@@ -38,7 +38,7 @@ install_cask() {
     fi
 }
 install_cask visual-studio-code "Visual Studio Code.app"
-install_cask 1password "1Password.app"
+install_cask bitwarden "Bitwarden.app"
 
 ok "Packages installed"
 
@@ -61,11 +61,11 @@ cat "$KEY.pub"
 echo ""
 read -rp "Press Enter after adding the SSH key to GitHub..."
 
-# ── 4. Sign in to 1Password CLI ──────────────────────────────────────────────
-log "Sign in to 1Password CLI..."
-op account add
-eval $(op signin)
-ok "1Password CLI authenticated"
+# ── 4. Sign in to Bitwarden CLI ──────────────────────────────────────────────
+log "Sign in to Bitwarden CLI..."
+bw login
+export BW_SESSION=$(bw unlock --raw)
+ok "Bitwarden CLI authenticated (BW_SESSION set)"
 
 # ── 5. chezmoi init ───────────────────────────────────────────────────────────
 log "Initializing chezmoi from $DOTFILES_REPO..."

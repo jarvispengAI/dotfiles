@@ -18,8 +18,8 @@ Log "Installing packages via winget..."
 
 $packages = @(
     "twpayne.chezmoi",          # dotfiles manager
-    "AgileBits.1Password",      # password manager
-    "AgileBits.1Password.CLI",  # 1Password CLI (op)
+    "Bitwarden.Bitwarden",      # password manager
+    "Bitwarden.CLI",            # Bitwarden CLI (bw)
     "Git.Git",                  # Git
     "Microsoft.VisualStudioCode",
     "GitHub.GitHubCLI",         # gh CLI
@@ -55,11 +55,11 @@ Get-Content "$keyPath.pub"
 Write-Host ""
 Read-Host "Press Enter after adding the SSH key to GitHub..."
 
-# ── 3. Sign in to 1Password CLI ──────────────────────────────────────────────
-Log "Sign in to 1Password CLI..."
-op account add
-op signin
-Ok "1Password CLI authenticated"
+# ── 3. Sign in to Bitwarden CLI ──────────────────────────────────────────────
+Log "Sign in to Bitwarden CLI..."
+bw login
+$env:BW_SESSION = bw unlock --raw
+Ok "Bitwarden CLI authenticated (BW_SESSION set)"
 
 # ── 4. Set up chezmoi with dotfiles repo ─────────────────────────────────────
 Log "Initializing chezmoi from $DotfilesRepo..."

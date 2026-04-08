@@ -3,10 +3,10 @@
     email = "cpeng@roku.com"
     github_username = "jarvispengAI"
 
-# 1Password integration — chezmoi will call `op` CLI automatically
-# Make sure `op signin` has been run before `chezmoi apply`
-[onepassword]
-    command = "op"
+# Bitwarden integration — chezmoi will call `bw` CLI automatically
+# Make sure `bw login` + `export BW_SESSION=$(bw unlock --raw)` before `chezmoi apply`
+[bitwarden]
+    command = "bw"
 
 [git]
     autoCommit = true
