@@ -2,22 +2,12 @@
 # This file is PRIVATE (chmod 600). Never commit raw secrets.
 # Edit the SOURCE at: ~/dotfiles/private_dot_env.tmpl
 #
-# HOW TO ADD A NEW SECRET:
-#   1. 在 Bitwarden App 新增 item（記好 item 名稱和 field）
-#   2. 在下方加入對應的 export 行（取消註解）
+# 新增 secret 步驟：
+#   1. 在 Bitwarden App 新增 item
+#   2. 在此檔加入： export KEY={{ (bitwarden "item" "Item Name").login.password }}
 #   3. Run: chezmoi update && chezmoi apply
-#
-# Bitwarden template 語法（加新 secret 時參考）：
-#   密碼欄位:  (bitwarden "item" "Item Name").login.password
-#   帳號欄位:  (bitwarden "item" "Item Name").login.username
-#   自訂欄位:  (bitwardenFields "item" "Item Name").fieldName.value
 
 # ── GitHub ───────────────────────────────────────────────────────────────────
 export GITHUB_TOKEN={{ (bitwarden "item" "GitHub PAT").login.password }}
 
-# ── Anthropic / Claude API ───────────────────────────────────────────────────
-# export ANTHROPIC_API_KEY={{ (bitwarden "item" "Anthropic API").login.password }}
-
-# ── AWS (if applicable) ──────────────────────────────────────────────────────
-# export AWS_ACCESS_KEY_ID={{ (bitwardenFields "item" "AWS").access_key_id.value }}
-# export AWS_SECRET_ACCESS_KEY={{ (bitwarden "item" "AWS").login.password }}
+# ── 其他 secret 請在下方新增 ─────────────────────────────────────────────────
