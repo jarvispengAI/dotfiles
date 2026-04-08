@@ -29,9 +29,11 @@ brew install \
     python@3.12 \
     1password-cli   # op CLI
 
-brew install --cask \
-    visual-studio-code \
-    1password
+install_cask() {
+    brew list --cask "$1" &>/dev/null && echo " OK $1 already installed" || brew install --cask "$1"
+}
+install_cask visual-studio-code
+install_cask 1password
 
 ok "Packages installed"
 
