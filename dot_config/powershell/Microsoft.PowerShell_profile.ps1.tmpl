@@ -34,7 +34,10 @@ function czpush {
 
 # 從 GitHub 拉取最新並套用
 function czpull {
-    $env:BW_SESSION = bw unlock --raw
+    $status = (bw status | ConvertFrom-Json).status
+    if ($status -ne 'unlocked') {
+        $env:BW_SESSION = bw unlock --raw
+    }
     chezmoi update
 }
 
