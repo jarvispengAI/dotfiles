@@ -26,7 +26,6 @@ brew install \
     gh \
     git \
     node \
-    uv \
     python@3.12 \
     bitwarden-cli   # bw CLI
 
@@ -41,8 +40,6 @@ install_cask() {
 install_cask visual-studio-code "Visual Studio Code.app"
 install_cask bitwarden "Bitwarden.app"
 
-log "Installing Claude Code..."
-npm install -g @anthropic-ai/claude-code
 ok "Packages installed"
 
 # ── 3. Generate SSH key ───────────────────────────────────────────────────────

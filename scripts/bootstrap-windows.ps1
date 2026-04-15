@@ -24,8 +24,7 @@ $packages = @(
     "Microsoft.VisualStudioCode",
     "GitHub.GitHubCLI",         # gh CLI
     "OpenJS.NodeJS.LTS",        # Node.js
-    "Python.Python.3.12",       # Python
-    "astral-sh.uv"              # uv (Python package manager for MCP servers)
+    "Python.Python.3.12"        # Python
     # "JanDeDobbeleer.OhMyPosh" # Optional: cross-platform prompt
 )
 
@@ -34,10 +33,6 @@ foreach ($pkg in $packages) {
     winget install --id $pkg -e --accept-source-agreements --accept-package-agreements
     Ok "$pkg"
 }
-
-Log "Installing Claude Code..."
-npm install -g @anthropic-ai/claude-code
-Ok "Claude Code"
 
 # ── 2. Generate SSH key ───────────────────────────────────────────────────────
 Log "Generating SSH key..."
