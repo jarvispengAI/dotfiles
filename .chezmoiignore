@@ -13,5 +13,14 @@ dot_zshrc.tmpl
 dot_config/powershell
 {{ end }}
 
+{{ if eq .chezmoi.os "windows" }}
+# Unix shell scripts — skip on Windows (use _windows.cmd variants instead)
+run_once_after_setup-claude.sh
+{{ end }}
+
 # Helper scripts called by run_once scripts (not deployed to home dir)
 setup-claude.ps1
+
+# Claude Code modifies this at runtime (plugins, permissions.allow, etc.)
+# Manage manually: `chezmoi apply --force ~/.claude/settings.json` on new machine
+.claude/settings.json
