@@ -1,32 +1,31 @@
-# Clone Claude Code plugin marketplace repos to ~/.claude/plugins/marketplaces/
+# Register Claude Code plugin marketplaces and install plugins.
 # Runs once on first `chezmoi apply`; re-runs if this file changes.
 
 $ErrorActionPreference = "Stop"
 
-$marketplacesDir = Join-Path $HOME ".claude\plugins\marketplaces"
-if (-not (Test-Path $marketplacesDir)) {
-    New-Item -ItemType Directory -Path $marketplacesDir | Out-Null
-}
+# ── Register marketplaces ─────────────────────────────────────────────────────
+Write-Host "==> Registering Claude Code plugin marketplaces..."
 
-function Clone-OrPull {
-    param([string]$Repo, [string]$Dest)
-    $target = Join-Path $marketplacesDir $Dest
-    if (Test-Path (Join-Path $target ".git")) {
-        Write-Host "==> Updating $Dest..."
-        git -C $target pull --ff-only --quiet
+$marketplaces = @(
+    @{ Repo = "affaan-m/everything-claude-code";    Name = "everything-claude-code" },
+    @{ Repo = "thedotmack/claude-mem";              Name = "thedotmack" },
+    @{ Repo = "obra/superpowers-marketplace";        Name = "superpowers-marketplace" },
+    @{ Repo = "anthropics/knowledge-work-plugins";  Name = "knowledge-work-plugins" },
+    @{ Repo = "forrestchang/andrej-karpathy-skills"; Name = "karpathy-skills" }
+)
+
+foreach ($m in $marketplaces) {
+    $existing = claude plugins marketplace list 2>&1 | Select-String $m.Name
+    if ($existing) {
+        Write-Host "    Already registered: $($m.Name)"
     } else {
-        Write-Host "==> Cloning $Repo -> $Dest..."
-        git clone --depth=1 "https://github.com/$Repo.git" $target
+        Write-Host "==> Adding marketplace $($m.Name)..."
+        claude plugins marketplace add $m.Repo 2>&1 | Out-Null
+        Write-Host "    OK $($m.Name)" -ForegroundColor Green
     }
 }
 
-Clone-OrPull "affaan-m/everything-claude-code"      "everything-claude-code"
-Clone-OrPull "thedotmack/claude-mem"                "thedotmack"
-Clone-OrPull "obra/superpowers-marketplace"         "superpowers-marketplace"
-Clone-OrPull "anthropics/knowledge-work-plugins"    "knowledge-work-plugins"
-Clone-OrPull "forrestchang/andrej-karpathy-skills"  "karpathy-skills"
-
-Write-Host " OK Claude plugin marketplaces ready at $marketplacesDir" -ForegroundColor Green
+Write-Host " OK Claude plugin marketplaces ready" -ForegroundColor Green
 
 # ── Install Claude Code plugins ───────────────────────────────────────────────
 Write-Host "==> Installing Claude Code plugins..."
@@ -62,7 +61,6 @@ $plugins = @(
     "ruby-lsp@claude-plugins-official",
     "rust-analyzer-lsp@claude-plugins-official",
     "security-guidance@claude-plugins-official",
-    "session-report@claude-plugins-official",
     "skill-creator@claude-plugins-official",
     "swift-lsp@claude-plugins-official",
     "typescript-lsp@claude-plugins-official",
@@ -86,15 +84,14 @@ $plugins = @(
     "operations@knowledge-work-plugins",
     "brand-voice@knowledge-work-plugins",
     "zoom-plugin@knowledge-work-plugins",
-    "pdf-viewer@knowledge-work-plugins",
-    "andrej-karpathy-skills@karpathy-skills"
+    "pdf-viewer@knowledge-work-plugins"
 )
 
 $failed = @()
 foreach ($plugin in $plugins) {
     Write-Host "==> Installing $plugin..."
     try {
-        claude plugins install $plugin --yes 2>&1 | Out-Null
+        claude plugins install $plugin 2>&1 | Out-Null
         Write-Host "    OK $plugin" -ForegroundColor Green
     } catch {
         Write-Host "    WARN: Failed to install $plugin - $_" -ForegroundColor Yellow

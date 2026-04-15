@@ -12,3 +12,6 @@ dot_zshrc.tmpl
 # Windows-only files — skip on Mac/Linux
 dot_config/powershell
 {{ end }}
+
+# Helper scripts called by run_once scripts (not deployed to home dir)
+setup-claude.ps1

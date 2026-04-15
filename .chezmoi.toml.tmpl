@@ -15,3 +15,7 @@ sourceDir = "{{ .chezmoi.homeDir }}/dotfiles"
 [git]
     autoCommit = true
     autoPush = false
+
+[interpreters.ps1]
+    command = "powershell"
+    args = ["-NoProfile", "-NonInteractive", "-File"]
