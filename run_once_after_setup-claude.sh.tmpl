@@ -1,3 +1,4 @@
+{{- if ne .chezmoi.os "windows" -}}
 #!/usr/bin/env bash
 # Clone Claude Code plugin marketplace repos to ~/.claude/plugins/marketplaces/
 # Runs once on first `chezmoi apply`; re-runs if this file changes.
@@ -28,3 +29,4 @@ clone_or_pull "anthropics/knowledge-work-plugins"    "knowledge-work-plugins"
 clone_or_pull "forrestchang/andrej-karpathy-skills"  "karpathy-skills"
 
 echo " OK Claude plugin marketplaces ready at $MARKETPLACES_DIR"
+{{- end -}}
