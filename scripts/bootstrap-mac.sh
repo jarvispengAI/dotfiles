@@ -69,7 +69,7 @@ ok "Bitwarden CLI authenticated (BW_SESSION set)"
 
 # ── 5. chezmoi init ───────────────────────────────────────────────────────────
 log "Initializing chezmoi from $DOTFILES_REPO..."
-chezmoi init --apply --source ~/dotfiles "$DOTFILES_REPO"
+chezmoi init --apply "$DOTFILES_REPO"
 ok "chezmoi applied"
 
 # ── 6. VS Code extensions ────────────────────────────────────────────────────
