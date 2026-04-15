@@ -1,3 +1,7 @@
+# Python compiled bytecode — never track these
+**/__pycache__
+**/*.pyc
+
 # Files to ignore on specific platforms
 {{ if ne .chezmoi.os "darwin" }}
 # Mac-only files — skip on Windows/Linux
