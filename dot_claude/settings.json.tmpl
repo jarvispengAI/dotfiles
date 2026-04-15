@@ -1,0 +1,283 @@
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "{{ .anthropicAuthToken }}",
+    "ANTHROPIC_BASE_URL": "{{ .anthropicBaseUrl }}",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-4.5-haiku",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-4.6-opus",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-4.6-sonnet",
+    "ANTHROPIC_MODEL": "claude-4.6-sonnet",
+    "CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS": "1",
+    "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1",
+    "DISABLE_BUG_COMMAND": "true",
+    "DISABLE_ERROR_REPORTING": "true",
+    "DISABLE_TELEMETRY": "true"
+  },
+  "permissions": {
+    "allow": [],
+    "additionalDirectories": [
+{{ if eq .chezmoi.os "darwin" -}}
+      "/private/tmp/skills-main",
+{{ end -}}
+      "{{ .chezmoi.homeDir }}/Downloads"
+    ]
+  },
+{{ if eq .chezmoi.os "darwin" -}}
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude",
+            "timeout": 86400
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/{{ .chezmoi.username }}/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+{{ end -}}
+  "enabledPlugins": {
+    "everything-claude-code@everything-claude-code": true,
+    "claude-mem@thedotmack": true,
+    "agent-sdk-dev@claude-plugins-official": true,
+    "clangd-lsp@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "csharp-lsp@claude-plugins-official": true,
+    "example-plugin@claude-plugins-official": true,
+    "explanatory-output-style@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true,
+    "learning-output-style@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "math-olympiad@claude-plugins-official": true,
+    "mcp-server-dev@claude-plugins-official": true,
+    "php-lsp@claude-plugins-official": true,
+    "playground@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "session-report@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "superpowers@superpowers-marketplace": true,
+    "productivity@knowledge-work-plugins": true,
+    "enterprise-search@knowledge-work-plugins": true,
+    "cowork-plugin-management@knowledge-work-plugins": true,
+    "sales@knowledge-work-plugins": true,
+    "finance@knowledge-work-plugins": true,
+    "data@knowledge-work-plugins": true,
+    "legal@knowledge-work-plugins": true,
+    "marketing@knowledge-work-plugins": true,
+    "customer-support@knowledge-work-plugins": true,
+    "product-management@knowledge-work-plugins": true,
+    "bio-research@knowledge-work-plugins": true,
+    "slack-by-salesforce@knowledge-work-plugins": true,
+    "apollo@knowledge-work-plugins": true,
+    "common-room@knowledge-work-plugins": true,
+    "engineering@knowledge-work-plugins": true,
+    "human-resources@knowledge-work-plugins": true,
+    "design@knowledge-work-plugins": true,
+    "operations@knowledge-work-plugins": true,
+    "brand-voice@knowledge-work-plugins": true,
+    "zoom-plugin@knowledge-work-plugins": true,
+    "planetscale@knowledge-work-plugins": true,
+    "adspirer-ads-agent@knowledge-work-plugins": true,
+    "sanity-plugin@knowledge-work-plugins": true,
+    "zoominfo@knowledge-work-plugins": true,
+    "mintlify@knowledge-work-plugins": true,
+    "daloopa@knowledge-work-plugins": true,
+    "zapier@knowledge-work-plugins": true,
+    "intercom@knowledge-work-plugins": true,
+    "cockroachdb@knowledge-work-plugins": true,
+    "prisma@knowledge-work-plugins": true,
+    "fastly-agent-toolkit@knowledge-work-plugins": true,
+    "cloudinary@knowledge-work-plugins": true,
+    "nimble@knowledge-work-plugins": true,
+    "brightdata-plugin@knowledge-work-plugins": true,
+    "searchfit-seo@knowledge-work-plugins": true,
+    "atlan@knowledge-work-plugins": true,
+    "ai-firstify@knowledge-work-plugins": true,
+    "product-tracking-skills@knowledge-work-plugins": true,
+    "postiz@knowledge-work-plugins": true,
+    "figma@knowledge-work-plugins": true,
+    "pdf-viewer@knowledge-work-plugins": true,
+    "andrej-karpathy-skills@karpathy-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "everything-claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "affaan-m/everything-claude-code"
+      }
+    },
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "knowledge-work-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    }
+  },
+  "hasCompletedOnboarding": true,
+  "mcpServers": {
+    "linkedin": {
+      "args": [
+        "linkedin-scraper-mcp@latest"
+      ],
+      "command": "uvx",
+      "env": {
+        "UV_HTTP_TIMEOUT": "300"
+      }
+    },
+    "workspace-mcp": {
+      "args": [
+        "workspace-mcp",
+        "--single-user"
+      ],
+      "command": "uvx",
+      "env": {
+        "GOOGLE_OAUTH_CLIENT_ID": "{{ env "GOOGLE_OAUTH_CLIENT_ID" }}",
+        "GOOGLE_OAUTH_CLIENT_SECRET": "{{ env "GOOGLE_OAUTH_CLIENT_SECRET" }}",
+        "OAUTHLIB_INSECURE_TRANSPORT": "1"
+      }
+    }
+  }
+}

@@ -2,6 +2,8 @@
     name = "Jarvis Peng"
     email = "cpeng@roku.com"
     github_username = "jarvispengAI"
+    anthropicAuthToken = "{{ promptStringOnce . "anthropicAuthToken" "ANTHROPIC_AUTH_TOKEN (e.g. Roku internal proxy token)" }}"
+    anthropicBaseUrl   = "{{ promptStringOnce . "anthropicBaseUrl"   "ANTHROPIC_BASE_URL (e.g. https://ai-hub-lite.msc.rokulabs.net)" }}"
 
 # Bitwarden integration — chezmoi will call `bw` CLI automatically
 # Make sure `bw login` + `export BW_SESSION=$(bw unlock --raw)` before `chezmoi apply`
