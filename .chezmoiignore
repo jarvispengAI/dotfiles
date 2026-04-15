@@ -22,5 +22,6 @@ run_once_after_setup-claude.sh
 setup-claude.ps1
 
 # Claude Code modifies this at runtime (plugins, permissions.allow, etc.)
-# Manage manually: `chezmoi apply --force ~/.claude/settings.json` on new machine
+# To initialize on a new machine:
+#   chezmoi execute-template < "$(chezmoi source-path)/dot_claude/settings.json.tmpl" > ~/.claude/settings.json
 .claude/settings.json
