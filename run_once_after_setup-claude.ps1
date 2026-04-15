@@ -90,9 +90,23 @@ $plugins = @(
     "andrej-karpathy-skills@karpathy-skills"
 )
 
+$failed = @()
 foreach ($plugin in $plugins) {
     Write-Host "==> Installing $plugin..."
-    claude plugins install $plugin --yes
+    try {
+        claude plugins install $plugin --yes 2>&1 | Out-Null
+        Write-Host "    OK $plugin" -ForegroundColor Green
+    } catch {
+        Write-Host "    WARN: Failed to install $plugin - $_" -ForegroundColor Yellow
+        $failed += $plugin
+    }
 }
 
-Write-Host " OK Claude plugins installed" -ForegroundColor Green
+if ($failed.Count -gt 0) {
+    Write-Host ""
+    Write-Host "The following plugins failed to install:" -ForegroundColor Yellow
+    $failed | ForEach-Object { Write-Host "  - $_" -ForegroundColor Yellow }
+    Write-Host "Re-run: chezmoi apply  to retry" -ForegroundColor Yellow
+} else {
+    Write-Host " OK Claude plugins installed" -ForegroundColor Green
+}
